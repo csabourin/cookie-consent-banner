@@ -24,6 +24,12 @@ To install the plugin, follow these instructions.
 
 Use this plugin to display a configurable 'cookie consent banner' on a website.
 
+## Multi-site Support
+
+When running Craft in multi-site mode, banner text can be customised for each
+site or language. Configure per-site messages and button labels in the plugin
+settings under the **Site Overrides** tab.
+
 ## Configuring Cookie Consent Banner
 
 The appearance of the banner can be customised by choosing its position, layout style and colour palette. The banner text and a 'learn more' link can also be defined. Additionally, there are options to control whether the banner is auto-injected, how the required CSS and JS assets are loaded and whether the banner should display on certain entry types/categories or in live preview.

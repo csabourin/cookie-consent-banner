@@ -393,6 +393,50 @@
       on: settings.revokable
   }) }}
 </div>
+<div id="tab-site-overrides" style="padding-bottom: 72px;">
+  {% set sites = craft.app.sites.getAllSites() %}
+  {% for site in sites %}
+    <h3>{{ site.name }} ({{ site.language }})</h3>
+    {{ forms.textField({
+        label: "Message"|t,
+        id: 'message_' ~ site.handle,
+        name: 'siteSettings[' ~ site.id ~ '][message]',
+        value: settings.siteSettings[site.id].message ?? '',
+        instructions: "Custom message for this site"|t
+    }) }}
+    {{ forms.textField({
+        label: "Dismiss Button Text"|t,
+        id: 'dismiss_' ~ site.handle,
+        name: 'siteSettings[' ~ site.id ~ '][dismiss]',
+        value: settings.siteSettings[site.id].dismiss ?? ''
+    }) }}
+    {{ forms.textField({
+        label: "Learn More Text"|t,
+        id: 'learn_' ~ site.handle,
+        name: 'siteSettings[' ~ site.id ~ '][learn]',
+        value: settings.siteSettings[site.id].learn ?? ''
+    }) }}
+    {{ forms.textField({
+        label: "Learn More Link"|t,
+        id: 'learn_more_link_' ~ site.handle,
+        name: 'siteSettings[' ~ site.id ~ '][learn_more_link]',
+        value: settings.siteSettings[site.id].learn_more_link ?? ''
+    }) }}
+    {{ forms.textField({
+        label: "Allow Text"|t,
+        id: 'allow_' ~ site.handle,
+        name: 'siteSettings[' ~ site.id ~ '][allow]',
+        value: settings.siteSettings[site.id].allow ?? ''
+    }) }}
+    {{ forms.textField({
+        label: "Decline Text"|t,
+        id: 'decline_' ~ site.handle,
+        name: 'siteSettings[' ~ site.id ~ '][decline]',
+        value: settings.siteSettings[site.id].decline ?? ''
+    }) }}
+    <hr>
+  {% endfor %}
+</div>
 <br>
 
 {% do view.registerAssetBundle("adigital\\cookieconsentbanner\\assetbundles\\cookieconsentbanner\\CookieConsentBannerAsset") %}

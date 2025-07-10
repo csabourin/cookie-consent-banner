@@ -140,6 +140,7 @@ class CookieConsentBanner extends Plugin
                 ['label' => 'Banner Text', 'url' => '#settings-tab-banner-text'],
                 ['label' => 'Include Options', 'url' => '#settings-tab-include-options'],
                 ['label' => 'Cookie Options', 'url' => '#settings-tab-cookie-options'],
+                ['label' => 'Site Overrides', 'url' => '#settings-tab-site-overrides'],
               ];
             }
         });
