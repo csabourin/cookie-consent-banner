@@ -70,6 +70,7 @@ class Settings extends Model
     public $revokable = false;
     public $dismiss_on_scroll = 0;
     public $dismiss_on_timeout = 0;
+    public $siteSettings = [];
 
     // Public Methods
     // =========================================================================
@@ -87,13 +88,27 @@ class Settings extends Model
     public function rules() : array
     {
         return [
-	        // these attributes are required
+                // these attributes are required
 	        [['position', 'layout', 'palette', 'palette_banner', 'palette_button', 'palette_banner_text', 'palette_button_text', 'palette_link', 'palette_left_button_bg', 'palette_left_button_text', 'learn_more_link', 'message', 'dismiss', 'learn', 'allow', 'decline', 'target', 'type', 'expiry_days'], 'required', 'message' => 'Please complete all required fields'],
             ['position', 'in', 'range' => ['top', 'toppush', 'bottom', 'left', 'right', 'bottom-left', 'bottom-right'], 'strict' => true, 'allowArray' => false],
             ['layout', 'in', 'range' => ['block', 'classic', 'edgeless', 'wire'], 'strict' => true, 'allowArray' => false],
             ['palette', 'in', 'range' => ['default', 'ice', 'cleanblue', 'greenblack', 'pink', 'purple', 'blue', 'red', 'white', 'graygreen', 'orange', 'whitegreen'], 'strict' => true, 'allowArray' => false],
             ['excluded_entry_types', 'default'],
-            ['excluded_categories', 'default']
+            ['excluded_categories', 'default'],
+            ['siteSettings', 'safe']
         ];
+    }
+
+    /**
+     * Get global settings without site overrides
+     *
+     * @return array
+     */
+    public function getGlobalSettings(): array
+    {
+        $settings = $this->toArray();
+        unset($settings['siteSettings']);
+
+        return $settings;
     }
 }
