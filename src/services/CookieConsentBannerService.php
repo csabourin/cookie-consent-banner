@@ -45,21 +45,23 @@ class CookieConsentBannerService extends Component
         if ($siteId === null) {
             $siteId = Craft::$app->getSites()->getCurrentSite()->id;
         }
-        
+
         $settings = CookieConsentBanner::$plugin->getSettings();
-        
-        // Check if we have site-specific settings
-        if (isset($settings->siteSettings[$siteId])) {
-            // Merge site-specific settings with global settings
-            $siteSettings = array_merge(
-                $settings->toArray(),
-                $settings->siteSettings[$siteId]
-            );
-            return $siteSettings;
+        $site = Craft::$app->getSites()->getSiteById($siteId);
+
+        $siteSettings = $settings->toArray();
+
+        if ($settings->textOverrideMethod === 'site') {
+            if (isset($settings->textOverrides[$siteId])) {
+                $siteSettings = array_merge($siteSettings, $settings->textOverrides[$siteId]);
+            }
+        } elseif ($settings->textOverrideMethod === 'language') {
+            if (isset($settings->textOverrides[$site->language])) {
+                $siteSettings = array_merge($siteSettings, $settings->textOverrides[$site->language]);
+            }
         }
-        
-        // Return global settings if no site-specific settings exist
-        return $settings->toArray();
+
+        return $siteSettings;
     }
     
     /**

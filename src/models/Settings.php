@@ -70,7 +70,8 @@ class Settings extends Model
     public $revokable = false;
     public $dismiss_on_scroll = 0;
     public $dismiss_on_timeout = 0;
-    public $siteSettings = [];
+    public $textOverrideMethod = 'none';
+    public $textOverrides = [];
 
     // Public Methods
     // =========================================================================
@@ -95,7 +96,8 @@ class Settings extends Model
             ['palette', 'in', 'range' => ['default', 'ice', 'cleanblue', 'greenblack', 'pink', 'purple', 'blue', 'red', 'white', 'graygreen', 'orange', 'whitegreen'], 'strict' => true, 'allowArray' => false],
             ['excluded_entry_types', 'default'],
             ['excluded_categories', 'default'],
-            ['siteSettings', 'safe']
+            ['textOverrideMethod', 'in', 'range' => ['none', 'site', 'language']],
+            ['textOverrides', 'safe']
         ];
     }
 
@@ -107,7 +109,8 @@ class Settings extends Model
     public function getGlobalSettings(): array
     {
         $settings = $this->toArray();
-        unset($settings['siteSettings']);
+        unset($settings['textOverrides']);
+        unset($settings['textOverrideMethod']);
 
         return $settings;
     }
